@@ -16,8 +16,8 @@ import javax.persistence.ManyToOne;
 public class BookDTO {
 
     private String id;
-    private String title;
-    private String author;
+    private String name;
+    private Author author;
     private String publishingCompany;
     private String image;
     private int year;

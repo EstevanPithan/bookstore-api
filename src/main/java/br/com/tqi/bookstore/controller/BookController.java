@@ -4,10 +4,8 @@ package br.com.tqi.bookstore.controller;
 import br.com.tqi.bookstore.controller.dto.BookCreateDTO;
 import br.com.tqi.bookstore.controller.dto.BookDTO;
 import br.com.tqi.bookstore.controller.mapper.BookMapper;
-import br.com.tqi.bookstore.exception.NameTitleAlreadyRegisteredException;
-import br.com.tqi.bookstore.model.Author;
+import br.com.tqi.bookstore.exception.NameAlreadyRegisteredException;
 import br.com.tqi.bookstore.model.Book;
-import br.com.tqi.bookstore.service.AuthorService;
 import br.com.tqi.bookstore.service.BookService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -57,7 +55,7 @@ public class BookController {
 
     @PostMapping
     @ApiOperation("Create a new book")
-    public ResponseEntity<BookDTO> create(@RequestBody BookCreateDTO dto) throws NameTitleAlreadyRegisteredException {
+    public ResponseEntity<BookDTO> create(@RequestBody BookCreateDTO dto) throws NameAlreadyRegisteredException {
         Book bookCreate = bookMapper.toBookCreate(dto);
         Book book = bookService.create(bookCreate, String.valueOf(dto.getAuthor()));
         BookDTO result = bookMapper.toBookDTO(book);

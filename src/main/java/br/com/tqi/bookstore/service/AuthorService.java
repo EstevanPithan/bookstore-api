@@ -1,9 +1,10 @@
 package br.com.tqi.bookstore.service;
 
 import br.com.tqi.bookstore.exception.AuthorCantBeDeleteException;
-import br.com.tqi.bookstore.exception.NameTitleAlreadyRegisteredException;
+import br.com.tqi.bookstore.exception.NameAlreadyRegisteredException;
 import br.com.tqi.bookstore.exception.IdNotFoundException;
 import br.com.tqi.bookstore.model.Author;
+import br.com.tqi.bookstore.model.Book;
 import br.com.tqi.bookstore.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -37,7 +38,7 @@ public class AuthorService {
     }
 
     @Transactional
-    public Author create(Author authorCreate) throws NameTitleAlreadyRegisteredException {
+    public Author create(Author authorCreate) throws NameAlreadyRegisteredException {
         verifyIfIsAlreadyRegistered(authorCreate.getName());
         String uuid = getUUID();
         authorCreate.setId(uuid);
@@ -58,16 +59,27 @@ public class AuthorService {
         author.setName(authorUpdate.getName());
         author.setDescription(authorUpdate.getDescription());
         author.setImage(authorUpdate.getImage());
+        author.setBook(authorUpdate.getBook());
         authorRepository.save(author);
         return author;
     }
 
-    private void verifyIfIsAlreadyRegistered(String name) throws NameTitleAlreadyRegisteredException {
+    public List<Book> getBooksByAuthor(String authorId){
+        Author author = findById(authorId);
+        List<Book> bookList = author.getBook();
+        return bookList;
+    }
+
+
+
+    private void verifyIfIsAlreadyRegistered(String name) throws NameAlreadyRegisteredException {
         Optional<Author> optionalAuthor = authorRepository.findByName(name);
         if (optionalAuthor.isPresent()) {
-            throw new NameTitleAlreadyRegisteredException(name);
+            throw new NameAlreadyRegisteredException(name);
         }
     }
+
+
 
 //    private void verifyIfIsAuthorIsLinked(Author author) throws AuthorCantBeDeleteException {
 //        if ((author.getBooks().isEmpty())) {

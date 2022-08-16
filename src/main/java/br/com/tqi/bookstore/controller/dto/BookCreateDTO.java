@@ -12,7 +12,7 @@ import javax.swing.*;
 @Data
 public class BookCreateDTO {
 
-    private String title;
+    private String name;
     private String author;
     private String publishingCompany;
     private String image;

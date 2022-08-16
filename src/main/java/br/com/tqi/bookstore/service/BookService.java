@@ -1,7 +1,7 @@
 package br.com.tqi.bookstore.service;
 
 import br.com.tqi.bookstore.exception.IdNotFoundException;
-import br.com.tqi.bookstore.exception.NameTitleAlreadyRegisteredException;
+import br.com.tqi.bookstore.exception.NameAlreadyRegisteredException;
 import br.com.tqi.bookstore.model.Author;
 import br.com.tqi.bookstore.model.Book;
 import br.com.tqi.bookstore.repository.BookRepository;
@@ -38,14 +38,22 @@ public class BookService {
     }
 
     @Transactional
-    public Book create(Book bookCreate, String authorId) throws NameTitleAlreadyRegisteredException {
-        verifyIfIsAlreadyRegistered(bookCreate.getName());
+    public Book create(Book bookCreate, String authorId) throws NameAlreadyRegisteredException {
+//        verifyIfIsAlreadyRegistered(bookCreate.getName());
         String uuid = getUUID();
         Author author = authorService.findById(authorId);
         bookCreate.setId(uuid);
         bookCreate.setAuthor(author);
         bookRepository.save(bookCreate);
+        addBookOnAuthorList(bookCreate, author);
         return bookCreate;
+    }
+
+    public void addBookOnAuthorList(Book book, Author author){
+        List<Book> bookList = author.getBook();
+        bookList.add(book);
+        author.setBook(bookList);
+        authorService.update(author.getId(), author);
     }
 
     @Transactional
@@ -66,6 +74,7 @@ public class BookService {
         return book;
     }
 
+
     @Transactional
     public Book fillStock(String id, double price, int quantity) {
         Book book = findById(id);
@@ -75,10 +84,10 @@ public class BookService {
         return book;
     }
 
-    private void verifyIfIsAlreadyRegistered(String title) throws NameTitleAlreadyRegisteredException {
+    private void verifyIfIsAlreadyRegistered(String title) throws NameAlreadyRegisteredException {
         Optional<Author> optionalAuthor = bookRepository.findByName(title);
         if (optionalAuthor.isPresent()) {
-            throw new NameTitleAlreadyRegisteredException(title);
+            throw new NameAlreadyRegisteredException(title);
         }
     }
 }
