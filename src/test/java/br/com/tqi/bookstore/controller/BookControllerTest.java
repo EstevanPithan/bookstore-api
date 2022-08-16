@@ -38,6 +38,8 @@ class BookControllerTest extends AbstractContainerBase{
 
         RestAssured.given()
                 .when()
+                .auth()
+                .basic("user", "password")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(bookDTO)
                 .post("/book")
@@ -66,6 +68,8 @@ class BookControllerTest extends AbstractContainerBase{
     void whenFindAllThenCheckResult() {
 
         RestAssured.given()
+                .auth()
+                .basic("user", "password")
                 .when()
                 .get("/book")
                 .then()

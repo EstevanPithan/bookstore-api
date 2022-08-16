@@ -1,27 +1,23 @@
 package br.com.tqi.bookstore.controller.dto;
 
 import br.com.tqi.bookstore.model.Author;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import br.com.tqi.bookstore.model.Book;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.ManyToOne;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BookDTO {
+public class AuthorDTO {
 
     private String id;
-    private String title;
-    private String author;
-    private String publishingCompany;
+    private String name;
+    private String description;
     private String image;
-    private int year;
-
-    private int quantity = 0;
-    private double price = 0;
-}
+ }

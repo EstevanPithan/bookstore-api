@@ -4,7 +4,10 @@ package br.com.tqi.bookstore.controller;
 import br.com.tqi.bookstore.controller.dto.BookCreateDTO;
 import br.com.tqi.bookstore.controller.dto.BookDTO;
 import br.com.tqi.bookstore.controller.mapper.BookMapper;
+import br.com.tqi.bookstore.exception.NameTitleAlreadyRegisteredException;
+import br.com.tqi.bookstore.model.Author;
 import br.com.tqi.bookstore.model.Book;
+import br.com.tqi.bookstore.service.AuthorService;
 import br.com.tqi.bookstore.service.BookService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,7 +25,6 @@ public class BookController {
 
     private final BookService bookService;
     private final BookMapper bookMapper;
-
 
     public BookController(BookService bookService, BookMapper bookMapper) {
         this.bookService = bookService;
@@ -45,6 +47,7 @@ public class BookController {
         return ResponseEntity.ok(result);
     }
 
+
     @DeleteMapping("/{id}")
     @ApiOperation("Delete a book by id")
     public ResponseEntity delete(@PathVariable String id){
@@ -54,9 +57,9 @@ public class BookController {
 
     @PostMapping
     @ApiOperation("Create a new book")
-    public ResponseEntity<BookDTO> create(@RequestBody BookCreateDTO dto){
+    public ResponseEntity<BookDTO> create(@RequestBody BookCreateDTO dto) throws NameTitleAlreadyRegisteredException {
         Book bookCreate = bookMapper.toBookCreate(dto);
-        Book book = bookService.create(bookCreate);
+        Book book = bookService.create(bookCreate, String.valueOf(dto.getAuthor()));
         BookDTO result = bookMapper.toBookDTO(book);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
