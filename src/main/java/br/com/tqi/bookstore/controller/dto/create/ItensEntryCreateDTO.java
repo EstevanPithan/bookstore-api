@@ -1,4 +1,4 @@
-package br.com.tqi.bookstore.controller.dto;
+package br.com.tqi.bookstore.controller.dto.create;
 
 import lombok.Data;
 
@@ -9,4 +9,5 @@ public class ItensEntryCreateDTO {
     private int quantity;
     private double price;
     private String observation;
+    private String invoiceNumber;
 }

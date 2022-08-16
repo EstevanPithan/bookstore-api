@@ -1,4 +1,4 @@
-package br.com.tqi.bookstore.controller.dto;
+package br.com.tqi.bookstore.controller.dto.create;
 
 import br.com.tqi.bookstore.model.Author;
 import com.fasterxml.jackson.annotation.JsonInclude;

@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -47,6 +49,7 @@ public class ItensEntryService {
         Book book = bookService.findById(bookId);
         itensEntryCreate.setId(uuid);
         itensEntryCreate.setBook(book);
+        itensEntryCreate.setDate(LocalDateTime.now());
         itensEntryRepository.save(itensEntryCreate);
         addEntryOnBook(itensEntryCreate, book);
         return itensEntryCreate;

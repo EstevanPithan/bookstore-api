@@ -30,6 +30,14 @@ public class Book  {
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "book")
     private List<ItensEntry> itensEntry = new ArrayList<>();
 
+
+   @JsonManagedReference
+    @ManyToMany
+    @JoinTable(name = "sold_book",
+            joinColumns = {@JoinColumn(name = "book_id")},
+            inverseJoinColumns = {@JoinColumn(name = "itenssell_id")})
+    private List<ItensSell> itensSells = new ArrayList<>();
+
     private String publishingCompany;
     private String image;
     private int year;

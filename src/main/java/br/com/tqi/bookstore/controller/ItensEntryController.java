@@ -1,6 +1,6 @@
 package br.com.tqi.bookstore.controller;
 
-import br.com.tqi.bookstore.controller.dto.ItensEntryCreateDTO;
+import br.com.tqi.bookstore.controller.dto.create.ItensEntryCreateDTO;
 import br.com.tqi.bookstore.controller.dto.ItensEntryDTO;
 import br.com.tqi.bookstore.controller.mapper.ItensEntryMapper;
 import br.com.tqi.bookstore.exception.BookQuantityNotEnougthToReverseException;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/itensEntry")
-@Api(tags = "ItensEntry Controller")
+@Api(tags = "Entry Controller")
 public class ItensEntryController {
 
 

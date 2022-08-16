@@ -1,7 +1,7 @@
 package br.com.tqi.bookstore.controller;
 
 
-import br.com.tqi.bookstore.controller.dto.BookCreateDTO;
+import br.com.tqi.bookstore.controller.dto.create.BookCreateDTO;
 import br.com.tqi.bookstore.controller.dto.BookDTO;
 import br.com.tqi.bookstore.controller.mapper.BookMapper;
 import br.com.tqi.bookstore.exception.NameAlreadyRegisteredException;

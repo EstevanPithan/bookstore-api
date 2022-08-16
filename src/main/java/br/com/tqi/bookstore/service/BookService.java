@@ -74,16 +74,6 @@ public class BookService {
         return book;
     }
 
-
-    @Transactional
-    public Book fillStock(String id, double price, int quantity) {
-        Book book = findById(id);
-        book.setPrice(price);
-        book.setQuantity(book.getQuantity() + quantity);
-        bookRepository.save(book);
-        return book;
-    }
-
     private void verifyIfIsAlreadyRegistered(String title) throws NameAlreadyRegisteredException {
         Optional<Author> optionalAuthor = bookRepository.findByName(title);
         if (optionalAuthor.isPresent()) {

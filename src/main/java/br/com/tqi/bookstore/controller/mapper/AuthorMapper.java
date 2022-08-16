@@ -1,6 +1,6 @@
 package br.com.tqi.bookstore.controller.mapper;
 
-import br.com.tqi.bookstore.controller.dto.AuthorCreateDTO;
+import br.com.tqi.bookstore.controller.dto.create.AuthorCreateDTO;
 import br.com.tqi.bookstore.controller.dto.AuthorDTO;
 import br.com.tqi.bookstore.model.Author;
 import org.modelmapper.ModelMapper;

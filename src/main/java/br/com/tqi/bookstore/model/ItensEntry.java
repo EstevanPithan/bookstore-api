@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity(name = "itens_entry")
@@ -23,7 +24,7 @@ public class ItensEntry {
 
     private int quantity = 0;
     private double price = 0;
-    private Date date;
+    private LocalDateTime date;
     private String observation;
     private String invoiceNumber;
 

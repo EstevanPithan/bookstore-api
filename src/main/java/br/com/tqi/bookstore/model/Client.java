@@ -9,19 +9,22 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "author_table")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Author {
+@NoArgsConstructor
+@Entity(name = "client")
+public class Client{
 
     @Id
     private String id;
     private String name;
-    private String description;
-    private String image;
+    private String cpf;
+    private String email;
+    private String password;
 
     @JsonBackReference
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "author")
-    private List<Book> book = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "client")
+    private List<ItensSell> itensSell = new ArrayList<>();
+
+
 }

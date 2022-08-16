@@ -49,7 +49,6 @@ public class AuthorService {
     @Transactional
     public void delete(String id) throws AuthorCantBeDeleteException {
         Author author = findById(id);
-//        verifyIfIsAuthorIsLinked(author);
         authorRepository.deleteById(id);
     }
 
@@ -70,23 +69,10 @@ public class AuthorService {
         return bookList;
     }
 
-
-
     private void verifyIfIsAlreadyRegistered(String name) throws NameAlreadyRegisteredException {
         Optional<Author> optionalAuthor = authorRepository.findByName(name);
         if (optionalAuthor.isPresent()) {
             throw new NameAlreadyRegisteredException(name);
         }
     }
-
-
-
-//    private void verifyIfIsAuthorIsLinked(Author author) throws AuthorCantBeDeleteException {
-//        if ((author.getBooks().isEmpty())) {
-//            System.out.println("entrou na exception");
-//            throw new AuthorCantBeDeleteException();
-//        }
-//
-//    }
-
 }
