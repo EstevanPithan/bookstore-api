@@ -14,7 +14,6 @@ import org.springframework.http.MediaType;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class BookControllerTest extends AbstractContainerBase{
-
     @LocalServerPort
     private int randomPort;
 

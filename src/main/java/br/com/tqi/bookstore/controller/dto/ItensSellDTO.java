@@ -1,13 +1,9 @@
 package br.com.tqi.bookstore.controller.dto;
 
-import br.com.tqi.bookstore.model.Book;
-import br.com.tqi.bookstore.model.Client;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 public class ItensSellDTO {
@@ -16,5 +12,8 @@ public class ItensSellDTO {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime date;
     private double totalPrice;
-    private Client client;
+    private String[] bookIds;
+    private Integer[] booksQnt;
+
+    private String clientId;
 }

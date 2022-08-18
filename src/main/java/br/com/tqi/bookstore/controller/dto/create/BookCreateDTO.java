@@ -13,7 +13,7 @@ import javax.swing.*;
 public class BookCreateDTO {
 
     private String name;
-    private String author;
+    private String authorId;
     private String publishingCompany;
     private String image;
     private int year;

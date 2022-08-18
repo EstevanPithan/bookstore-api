@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -26,16 +27,15 @@ public class Book  {
     @JsonManagedReference
     private Author author;
 
-    @JsonBackReference
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "book")
+    //@JsonBackReference
+    @OneToMany//(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "book")
     private List<ItensEntry> itensEntry = new ArrayList<>();
 
 
+
+   // @JoinTable(name = "sold_book", joinColumns = {@JoinColumn(name = "book_id")}, inverseJoinColumns = {@JoinColumn(name = "itenssell_id")})
    @JsonManagedReference
-    @ManyToMany
-    @JoinTable(name = "sold_book",
-            joinColumns = {@JoinColumn(name = "book_id")},
-            inverseJoinColumns = {@JoinColumn(name = "itenssell_id")})
+   @ManyToMany
     private List<ItensSell> itensSells = new ArrayList<>();
 
     private String publishingCompany;

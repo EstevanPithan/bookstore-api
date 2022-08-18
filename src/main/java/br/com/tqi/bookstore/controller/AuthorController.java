@@ -72,11 +72,11 @@ public class AuthorController {
         AuthorDTO result = authorMapper.toAuthorDTO(author);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
-    @GetMapping("/books/{id}/")
-    @ApiOperation("Find list of book by author id")
-    public ResponseEntity<List<BookDTO>> booksByAuthor(@PathVariable String id){
-        List<Book> bookList = authorService.getBooksByAuthor(id);
-        List<BookDTO> result = bookMapper.toBookDTOList(bookList);
-        return ResponseEntity.ok(result);
-    }
+//    @GetMapping("/books/{id}/")
+//    @ApiOperation("Find list of book by author id")
+//    public ResponseEntity<List<BookDTO>> booksByAuthor(@PathVariable String id){
+//        List<Book> bookList = authorService.getBooksByAuthor(id);
+//        List<BookDTO> result = bookMapper.toBookDTOList(bookList);
+//        return ResponseEntity.ok(result);
+//    }
 }

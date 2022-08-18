@@ -56,8 +56,7 @@ public class AuthorService {
     public Author update(String id, Author authorUpdate) {
         Author author = findById(id);
         author.setName(authorUpdate.getName());
-        author.setDescription(authorUpdate.getDescription());
-        author.setImage(authorUpdate.getImage());
+        author.setBirthday(authorUpdate.getBirthday());
         author.setBook(authorUpdate.getBook());
         authorRepository.save(author);
         return author;

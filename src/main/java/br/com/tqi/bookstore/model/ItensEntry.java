@@ -17,10 +17,10 @@ public class ItensEntry {
 
     @Id
     private String id;
-    @ManyToOne
-    @JoinColumn(name = "book_id")
-    @JsonManagedReference
-    private Book book;
+//    @ManyToOne
+//    @JoinColumn(name = "book_id")
+//    @JsonManagedReference
+    private String book;
 
     private int quantity = 0;
     private double price = 0;

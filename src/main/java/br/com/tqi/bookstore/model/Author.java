@@ -18,8 +18,7 @@ public class Author {
     @Id
     private String id;
     private String name;
-    private String description;
-    private String image;
+    private String birthday;
 
     @JsonBackReference
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "author")

@@ -20,10 +20,9 @@ public class Client{
     private String name;
     private String cpf;
     private String email;
-    private String password;
 
     @JsonBackReference
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "client")
+    @OneToMany//local(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "client")
     private List<ItensSell> itensSell = new ArrayList<>();
 
 

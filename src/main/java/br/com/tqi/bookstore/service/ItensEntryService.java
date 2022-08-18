@@ -48,7 +48,7 @@ public class ItensEntryService {
         String uuid = getUUID();
         Book book = bookService.findById(bookId);
         itensEntryCreate.setId(uuid);
-        itensEntryCreate.setBook(book);
+        itensEntryCreate.setBook(bookId);
         itensEntryCreate.setDate(LocalDateTime.now());
         itensEntryRepository.save(itensEntryCreate);
         addEntryOnBook(itensEntryCreate, book);
@@ -67,7 +67,7 @@ public class ItensEntryService {
     @Transactional
     public void reverseAndDelete(String id) throws BookQuantityNotEnougthToReverseException{
         ItensEntry itensEntry = findById(id);
-        Book book = itensEntry.getBook();
+        Book book = bookService.findById(itensEntry.getBook());
         if (book.getQuantity() < itensEntry.getQuantity()){
             new BookQuantityNotEnougthToReverseException();
         }else{

@@ -70,6 +70,8 @@ public class BookService {
         book.setPublishingCompany(bookUpdate.getPublishingCompany());
         book.setImage(bookUpdate.getImage());
         book.setYear(bookUpdate.getYear());
+        book.setQuantity(bookUpdate.getQuantity());
+        book.setPrice(bookUpdate.getPrice());
         bookRepository.save(book);
         return book;
     }

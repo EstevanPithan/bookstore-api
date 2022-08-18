@@ -57,7 +57,7 @@ public class BookController {
     @ApiOperation("Create a new book")
     public ResponseEntity<BookDTO> create(@RequestBody BookCreateDTO dto) throws NameAlreadyRegisteredException {
         Book bookCreate = bookMapper.toBookCreate(dto);
-        Book book = bookService.create(bookCreate, String.valueOf(dto.getAuthor()));
+        Book book = bookService.create(bookCreate, String.valueOf(dto.getAuthorId()));
         BookDTO result = bookMapper.toBookDTO(book);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }

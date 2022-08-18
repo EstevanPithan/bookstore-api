@@ -56,7 +56,7 @@ public class ItensEntryController {
     @ApiOperation("Create a new itensEntry")
     public ResponseEntity<ItensEntryDTO> create(@RequestBody ItensEntryCreateDTO dto) {
         ItensEntry itensEntryCreate = itensEntryMapper.toItensEntryCreate(dto);
-        ItensEntry itensEntry = itensEntryService.create(itensEntryCreate, String.valueOf(dto.getBook()));
+        ItensEntry itensEntry = itensEntryService.create(itensEntryCreate, String.valueOf(dto.getBookId()));
         ItensEntryDTO result = itensEntryMapper.toItensEntryDTO(itensEntry);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }

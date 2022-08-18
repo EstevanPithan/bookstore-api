@@ -56,16 +56,15 @@ public class ClientService {
         client.setName(clientUpdate.getName());
         client.setCpf(clientUpdate.getCpf());
         client.setEmail(clientUpdate.getEmail());
-        client.setPassword(clientUpdate.getPassword());
         clientRepository.save(client);
         return client;
     }
 
 
-    private void verifyIfIsAlreadyRegistered(String cpf) throws NameAlreadyRegisteredException {
-        Optional<Client> optionalClient = clientRepository.findByCpf(cpf);
-        if (optionalClient.isPresent()) {
-            throw new NameAlreadyRegisteredException(cpf);
-        }
-    }
+//    private void verifyIfIsAlreadyRegistered(String cpf) throws NameAlreadyRegisteredException {
+//        Optional<Client> optionalClient = clientRepository.findByCpf(cpf);
+//        if (optionalClient.isPresent()) {
+//            throw new NameAlreadyRegisteredException(cpf);
+//        }
+//    }
 }

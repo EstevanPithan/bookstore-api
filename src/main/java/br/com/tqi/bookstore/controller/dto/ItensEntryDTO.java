@@ -1,6 +1,5 @@
 package br.com.tqi.bookstore.controller.dto;
 
-import br.com.tqi.bookstore.model.Book;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -8,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -17,7 +15,7 @@ import java.util.Date;
 public class ItensEntryDTO {
 
     private String id;
-    private Book book;
+    private String book;
     private int quantity;
     private double price;
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
