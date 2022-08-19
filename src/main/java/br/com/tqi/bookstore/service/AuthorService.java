@@ -1,6 +1,7 @@
 package br.com.tqi.bookstore.service;
 
-import br.com.tqi.bookstore.exception.AuthorCantBeDeleteException;
+import br.com.tqi.bookstore.controller.dto.BookDTO;
+import br.com.tqi.bookstore.controller.mapper.BookMapper;
 import br.com.tqi.bookstore.exception.NameAlreadyRegisteredException;
 import br.com.tqi.bookstore.exception.IdNotFoundException;
 import br.com.tqi.bookstore.model.Author;
@@ -18,9 +19,10 @@ import java.util.UUID;
 public class AuthorService {
 
     private final AuthorRepository authorRepository;
-
-    public AuthorService(AuthorRepository authorRepository) {
+    private final BookMapper bookMapper;
+    public AuthorService(AuthorRepository authorRepository, BookMapper bookMapper) {
         this.authorRepository = authorRepository;
+        this.bookMapper = bookMapper;
     }
 
     private static String getUUID() {
@@ -33,7 +35,7 @@ public class AuthorService {
     }
 
     @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
-    public Author findById(String id) {
+    public Author findById(String id) throws IdNotFoundException {
         return authorRepository.findById(id).orElseThrow(() -> new IdNotFoundException(id)); //Find by id retorna um optinal
     }
 
@@ -47,13 +49,13 @@ public class AuthorService {
     }
 
     @Transactional
-    public void delete(String id) throws AuthorCantBeDeleteException {
+    public void delete(String id) throws IdNotFoundException {
         Author author = findById(id);
         authorRepository.deleteById(id);
     }
 
     @Transactional
-    public Author update(String id, Author authorUpdate) {
+    public Author update(String id, Author authorUpdate) throws IdNotFoundException {
         Author author = findById(id);
         author.setName(authorUpdate.getName());
         author.setBirthday(authorUpdate.getBirthday());
@@ -62,10 +64,11 @@ public class AuthorService {
         return author;
     }
 
-    public List<Book> getBooksByAuthor(String authorId){
+    @Transactional
+    public List<BookDTO> getBooksByAuthor(String authorId) throws IdNotFoundException{
         Author author = findById(authorId);
         List<Book> bookList = author.getBook();
-        return bookList;
+        return bookMapper.toBookDTOList(bookList);
     }
 
     private void verifyIfIsAlreadyRegistered(String name) throws NameAlreadyRegisteredException {

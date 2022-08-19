@@ -1,6 +1,8 @@
 package br.com.tqi.bookstore.service;
 
 import br.com.tqi.bookstore.controller.dto.create.ItensSellCreateDTO;
+import br.com.tqi.bookstore.exception.BookQuantityNotEnougthToSellException;
+import br.com.tqi.bookstore.exception.CpfAlreadyRegisteredException;
 import br.com.tqi.bookstore.exception.IdNotFoundException;
 import br.com.tqi.bookstore.exception.NameAlreadyRegisteredException;
 import br.com.tqi.bookstore.model.Book;
@@ -14,11 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class ItensSellService {
-
 
     private final ItensSellRepository itensSellRepository;
 
@@ -42,12 +44,13 @@ public class ItensSellService {
     }
 
     @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
-    public ItensSell findById(String id) {
+    public ItensSell findById(String id) throws IdNotFoundException {
         return itensSellRepository.findById(id).orElseThrow(() -> new IdNotFoundException(id)); //Find by id retorna um optinal
     }
 
     @Transactional
-    public ItensSell create(ItensSell itensSellCreate, ItensSellCreateDTO dto) throws NameAlreadyRegisteredException {
+    public ItensSell create(ItensSell itensSellCreate, ItensSellCreateDTO dto) throws NameAlreadyRegisteredException, IdNotFoundException, BookQuantityNotEnougthToSellException {
+        verifyStock(itensSellCreate);
         String uuid = getUUID();
 
         Client client = clientService.findById(String.valueOf(dto.getClientId()));
@@ -56,20 +59,21 @@ public class ItensSellService {
         itensSellCreate.setDate(LocalDateTime.now());
         itensSellRepository.save(itensSellCreate);
         addItensSellOnClientList(itensSellCreate, client);
+
         subtractBookFromStock(itensSellCreate);
         return itensSellCreate;
     }
 
     @Transactional
-    public void addItensSellOnClientList(ItensSell itensSell, Client client) {
+    public void addItensSellOnClientList(ItensSell itensSell, Client client) throws IdNotFoundException{
         List<ItensSell> itensSellList = client.getItensSell();
         itensSellList.add(itensSell);
         client.setItensSell(itensSellList);
         clientService.update(client.getId(), client);
     }
 
-    @Transactional
-    public void subtractBookFromStock(ItensSell itensSell) {
+
+    public void subtractBookFromStock(ItensSell itensSell) throws IdNotFoundException {
         String[] idArray = itensSell.getBookIds();
         Integer[] qntArray = itensSell.getBooksQnt();
         for (int i = 0; i < itensSell.getBooksQnt().length; i++) {
@@ -79,12 +83,14 @@ public class ItensSellService {
         }
     }
 
-
-    @Transactional
-    public void delete(String id) {
-        findById(id);
-        itensSellRepository.deleteById(id);
+    private void verifyStock(ItensSell itensSell) throws BookQuantityNotEnougthToSellException, IdNotFoundException {
+        String[] idArray = itensSell.getBookIds();
+        Integer[] qntArray = itensSell.getBooksQnt();
+        for (int i = 0; i < qntArray.length; i++) {
+            Book book = bookService.findById(idArray[i]);
+            if (book.getQuantity() < qntArray[i]){
+                throw new BookQuantityNotEnougthToSellException();
+            }
+        }
     }
-
-
 }

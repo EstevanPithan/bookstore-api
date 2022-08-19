@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Book  {
+public class Book {
 
     @Id
     private String id;
@@ -26,16 +26,10 @@ public class Book  {
     @JoinColumn(name = "author_id")
     @JsonManagedReference
     private Author author;
-
-    //@JsonBackReference
-    @OneToMany//(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "book")
+    @OneToMany
     private List<ItensEntry> itensEntry = new ArrayList<>();
-
-
-
-   // @JoinTable(name = "sold_book", joinColumns = {@JoinColumn(name = "book_id")}, inverseJoinColumns = {@JoinColumn(name = "itenssell_id")})
-   @JsonManagedReference
-   @ManyToMany
+    @JsonManagedReference
+    @ManyToMany
     private List<ItensSell> itensSells = new ArrayList<>();
 
     private String publishingCompany;

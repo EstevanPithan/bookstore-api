@@ -33,13 +33,14 @@ public class BookService {
     }
 
     @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
-    public Book findById(String id) {
+    public Book findById(String id) throws IdNotFoundException {
         return bookRepository.findById(id).orElseThrow(() -> new IdNotFoundException(id)); //Find by id retorna um optinal
     }
 
     @Transactional
-    public Book create(Book bookCreate, String authorId) throws NameAlreadyRegisteredException {
-//        verifyIfIsAlreadyRegistered(bookCreate.getName());
+    public Book create(Book bookCreate, String authorId) throws NameAlreadyRegisteredException, IdNotFoundException {
+        verifyIfIsAlreadyRegistered(bookCreate.getName());
+
         String uuid = getUUID();
         Author author = authorService.findById(authorId);
         bookCreate.setId(uuid);
@@ -49,21 +50,14 @@ public class BookService {
         return bookCreate;
     }
 
-    public void addBookOnAuthorList(Book book, Author author){
-        List<Book> bookList = author.getBook();
-        bookList.add(book);
-        author.setBook(bookList);
-        authorService.update(author.getId(), author);
-    }
-
     @Transactional
-    public void delete(String id) {
+    public void delete(String id) throws IdNotFoundException {
         findById(id);
         bookRepository.deleteById(id);
     }
 
     @Transactional
-    public Book update(String id, Book bookUpdate) {
+    public Book update(String id, Book bookUpdate) throws IdNotFoundException {
         Book book = findById(id);
         book.setName(bookUpdate.getName());
         book.setAuthor(bookUpdate.getAuthor());
@@ -76,10 +70,18 @@ public class BookService {
         return book;
     }
 
-    private void verifyIfIsAlreadyRegistered(String title) throws NameAlreadyRegisteredException {
-        Optional<Author> optionalAuthor = bookRepository.findByName(title);
+    public void addBookOnAuthorList(Book book, Author author)throws IdNotFoundException {
+        List<Book> bookList = author.getBook();
+        bookList.add(book);
+        author.setBook(bookList);
+        authorService.update(author.getId(), author);
+    }
+
+
+    private void verifyIfIsAlreadyRegistered(String name) throws NameAlreadyRegisteredException {
+        Optional<Author> optionalAuthor = bookRepository.findByName(name);
         if (optionalAuthor.isPresent()) {
-            throw new NameAlreadyRegisteredException(title);
+            throw new NameAlreadyRegisteredException(name);
         }
     }
 }

@@ -1,10 +1,7 @@
 package br.com.tqi.bookstore.service;
 
 
-import br.com.tqi.bookstore.exception.BookQuantityNotEnougthToReverseException;
 import br.com.tqi.bookstore.exception.IdNotFoundException;
-import br.com.tqi.bookstore.exception.NameAlreadyRegisteredException;
-import br.com.tqi.bookstore.model.Author;
 import br.com.tqi.bookstore.model.Book;
 import br.com.tqi.bookstore.model.ItensEntry;
 import br.com.tqi.bookstore.repository.ItensEntryRepository;
@@ -13,7 +10,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,12 +35,13 @@ public class ItensEntryService {
     }
 
     @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
-    public ItensEntry findById(String id) {
+    public ItensEntry findById(String id) throws IdNotFoundException {
         return itensEntryRepository.findById(id).orElseThrow(() -> new IdNotFoundException(id)); //Find by id retorna um optinal
     }
 
     @Transactional
-    public ItensEntry create(ItensEntry itensEntryCreate, String bookId) {
+    public ItensEntry create(ItensEntry itensEntryCreate, String bookId) throws IdNotFoundException{
+
         String uuid = getUUID();
         Book book = bookService.findById(bookId);
         itensEntryCreate.setId(uuid);
@@ -55,7 +52,7 @@ public class ItensEntryService {
         return itensEntryCreate;
     }
 
-    private void addEntryOnBook(ItensEntry itensEntry, Book book) {
+    private void addEntryOnBook(ItensEntry itensEntry, Book book) throws IdNotFoundException{
         List<ItensEntry> itensEntryList = book.getItensEntry();
         book.setQuantity(book.getQuantity()+ itensEntry.getQuantity());
         book.setPrice(itensEntry.getPrice());
@@ -64,15 +61,4 @@ public class ItensEntryService {
         bookService.update(book.getId(), book);
     }
 
-    @Transactional
-    public void reverseAndDelete(String id) throws BookQuantityNotEnougthToReverseException{
-        ItensEntry itensEntry = findById(id);
-        Book book = bookService.findById(itensEntry.getBook());
-        if (book.getQuantity() < itensEntry.getQuantity()){
-            new BookQuantityNotEnougthToReverseException();
-        }else{
-            book.setQuantity(book.getQuantity() - itensEntry.getQuantity());
-        }
-        itensEntryRepository.deleteById(id);
-    }
 }

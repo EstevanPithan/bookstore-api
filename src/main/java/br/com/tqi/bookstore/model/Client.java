@@ -22,7 +22,7 @@ public class Client{
     private String email;
 
     @JsonBackReference
-    @OneToMany//local(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "client")
+    @OneToMany
     private List<ItensSell> itensSell = new ArrayList<>();
 
 
