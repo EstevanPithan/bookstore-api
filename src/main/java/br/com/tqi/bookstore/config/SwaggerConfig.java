@@ -30,35 +30,35 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("br.com.tqi.bookstore"))
                 .build()
-                .apiInfo(metaData());
-//                .securityContexts(Arrays.asList(actuatorSecurityContext()))
-//                .securitySchemes(Arrays.asList(basicAuthScheme()));
+                .apiInfo(metaData())
+                .securityContexts(Arrays.asList(actuatorSecurityContext()))
+                .securitySchemes(Arrays.asList(basicAuthScheme()));
     }
-//
-//    private SecurityContext actuatorSecurityContext() {
-//        return SecurityContext.builder()
-//                .securityReferences(Arrays.asList(basicAuthReference()))
-//                .build();
-//    }
-//
-//    private SecurityScheme basicAuthScheme() {
-//        return new BasicAuth("basicAuth");
-//    }
-//
-//    private SecurityReference basicAuthReference() {
-//        return new SecurityReference("basicAuth", new AuthorizationScope[0]);
-//    }
-//
-//    private List<SecurityScheme> basicScheme() {
-//        List<SecurityScheme> schemeList = new ArrayList<>();
-//        schemeList.add(new BasicAuth("basicAuth"));
-//        return schemeList;
-//    }
-//
-//    private ApiKey apiKey() {
-//        return new ApiKey("apiKey", "Authorization", "header");
-//    }
-//
+
+    private SecurityContext actuatorSecurityContext() {
+        return SecurityContext.builder()
+                .securityReferences(Arrays.asList(basicAuthReference()))
+                .build();
+    }
+
+    private SecurityScheme basicAuthScheme() {
+        return new BasicAuth("basicAuth");
+    }
+
+    private SecurityReference basicAuthReference() {
+        return new SecurityReference("basicAuth", new AuthorizationScope[0]);
+    }
+
+    private List<SecurityScheme> basicScheme() {
+        List<SecurityScheme> schemeList = new ArrayList<>();
+        schemeList.add(new BasicAuth("basicAuth"));
+        return schemeList;
+    }
+
+    private ApiKey apiKey() {
+        return new ApiKey("apiKey", "Authorization", "header");
+    }
+
     private ApiInfo metaData() {
         return new ApiInfoBuilder().title("Bookstore REST API")
                 .description("Spring Boot REST API for Bookstore")

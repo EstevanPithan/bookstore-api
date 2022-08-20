@@ -12,13 +12,13 @@ public class ItensSellBuilder {
     private String id = "123456";
 
     @Builder.Default
-    private String[] bookIds = {"11122233"};
+    private String[] bookIds = {"123456"};
 
     @Builder.Default
-    private Integer[] booksQnt = new Integer[1];
+    private Integer[] booksQnt = {1};
 
     @Builder.Default
-    private String clientId = "12342";
+    private String clientId = "123456";
 
     @Builder.Default
     private LocalDateTime date = LocalDateTime.now();

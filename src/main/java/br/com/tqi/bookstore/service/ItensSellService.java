@@ -1,8 +1,8 @@
 package br.com.tqi.bookstore.service;
 
 import br.com.tqi.bookstore.controller.dto.create.ItensSellCreateDTO;
+import br.com.tqi.bookstore.controller.mapper.ItensSellMapper;
 import br.com.tqi.bookstore.exception.BookQuantityNotEnougthToSellException;
-import br.com.tqi.bookstore.exception.CpfAlreadyRegisteredException;
 import br.com.tqi.bookstore.exception.IdNotFoundException;
 import br.com.tqi.bookstore.exception.NameAlreadyRegisteredException;
 import br.com.tqi.bookstore.model.Book;
@@ -14,9 +14,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -28,10 +26,13 @@ public class ItensSellService {
 
     private final BookService bookService;
 
-    public ItensSellService(ItensSellRepository itensSellRepository, ClientService clientService, BookService bookService) {
+    private final ItensSellMapper itensSeelMapper;
+
+    public ItensSellService(ItensSellRepository itensSellRepository, ClientService clientService, BookService bookService, ItensSellMapper itensSeelMapper) {
         this.itensSellRepository = itensSellRepository;
         this.clientService = clientService;
         this.bookService = bookService;
+        this.itensSeelMapper = itensSeelMapper;
     }
 
     private static String getUUID() {
@@ -49,11 +50,12 @@ public class ItensSellService {
     }
 
     @Transactional
-    public ItensSell create(ItensSell itensSellCreate, ItensSellCreateDTO dto) throws NameAlreadyRegisteredException, IdNotFoundException, BookQuantityNotEnougthToSellException {
+    public ItensSell create(ItensSell itensSellCreate) throws NameAlreadyRegisteredException, IdNotFoundException, BookQuantityNotEnougthToSellException {
+
         verifyStock(itensSellCreate);
         String uuid = getUUID();
 
-        Client client = clientService.findById(String.valueOf(dto.getClientId()));
+        Client client = clientService.findById(itensSellCreate.getClientId());
 
         itensSellCreate.setId(uuid);
         itensSellCreate.setDate(LocalDateTime.now());
@@ -83,7 +85,7 @@ public class ItensSellService {
         }
     }
 
-    private void verifyStock(ItensSell itensSell) throws BookQuantityNotEnougthToSellException, IdNotFoundException {
+    public void verifyStock(ItensSell itensSell) throws BookQuantityNotEnougthToSellException, IdNotFoundException {
         String[] idArray = itensSell.getBookIds();
         Integer[] qntArray = itensSell.getBooksQnt();
         for (int i = 0; i < qntArray.length; i++) {

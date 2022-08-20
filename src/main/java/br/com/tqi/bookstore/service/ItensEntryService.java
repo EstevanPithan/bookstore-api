@@ -52,7 +52,7 @@ public class ItensEntryService {
         return itensEntryCreate;
     }
 
-    private void addEntryOnBook(ItensEntry itensEntry, Book book) throws IdNotFoundException{
+    public void addEntryOnBook(ItensEntry itensEntry, Book book) throws IdNotFoundException{
         List<ItensEntry> itensEntryList = book.getItensEntry();
         book.setQuantity(book.getQuantity()+ itensEntry.getQuantity());
         book.setPrice(itensEntry.getPrice());

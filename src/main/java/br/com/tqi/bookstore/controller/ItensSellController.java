@@ -48,7 +48,7 @@ public class ItensSellController {
     @ApiOperation("Create a new itensSell")
     public ResponseEntity<ItensSellDTO> create(@RequestBody ItensSellCreateDTO dto) throws IdNotFoundException, NameAlreadyRegisteredException, BookQuantityNotEnougthToSellException {
         ItensSell itensSellCreate = itensSellMapper.toItensSellCreate(dto);
-        ItensSell itensSell = itensSellService.create(itensSellCreate, dto);
+        ItensSell itensSell = itensSellService.create(itensSellCreate);
         ItensSellDTO result = itensSellMapper.toItensSellDTO(itensSell);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }

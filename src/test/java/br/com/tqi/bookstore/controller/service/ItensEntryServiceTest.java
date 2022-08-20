@@ -48,28 +48,15 @@ public class ItensEntryServiceTest {
     private ItensEntryService itensEntryService;
 
     @Test
-    void whenItensEntryInformedThenItShouldBeCreated() throws  IdNotFoundException {
-        ItensEntry expectedSavedItensEntry = ItensEntryBuilder.builder().build().toItensEntry();
-        Book book = BookBuilder.builder().build().toBook();
-        String firstId = expectedSavedItensEntry.getId();
-
-//        when(itensEntryRepository.findByName(expectedSavedItensEntry.getName())).thenReturn(Optional.empty());
-        when(bookService.findById(book.getId())).thenReturn(book);
-
-        ItensEntry createdItensEntry = itensEntryService.create(expectedSavedItensEntry,book.getId());
-
-        assertThat(createdItensEntry.getId(), not(equalTo(firstId)));
-        assertThat(createdItensEntry.getQuantity(), is(equalTo(expectedSavedItensEntry.getQuantity())));
-        assertThat(createdItensEntry.getInvoiceNumber(), is(equalTo(expectedSavedItensEntry.getInvoiceNumber())));
-    }
-
-    @Test
-    void whenNotRegisteredItensEntryIdIsGivenThenThrowAnException() throws IdNotFoundException {
+    void whenListItensEntryIsCalledThenReturnAListOfItensEntrys() {
         ItensEntry expectedSavedItensEntry = ItensEntryBuilder.builder().build().toItensEntry();
 
-        when(itensEntryRepository.findById(expectedSavedItensEntry.getId())).thenReturn(Optional.empty());
+        when(itensEntryRepository.findAll()).thenReturn(Collections.singletonList(expectedSavedItensEntry));
 
-        assertThrows(IdNotFoundException.class, () -> itensEntryService.findById(expectedSavedItensEntry.getId()));
+        List<ItensEntry> foundListItensEntrys = itensEntryService.findAll();
+
+        assertThat(foundListItensEntrys, is(not(empty())));
+        assertThat(foundListItensEntrys.get(0), is(equalTo(expectedSavedItensEntry)));
     }
 
     @Test
@@ -87,30 +74,44 @@ public class ItensEntryServiceTest {
     }
 
     @Test
-    void whenListItensEntryIsCalledThenReturnAListOfItensEntrys() {
+    void whenItensEntryInformedThenItShouldBeCreated() throws IdNotFoundException {
         ItensEntry expectedSavedItensEntry = ItensEntryBuilder.builder().build().toItensEntry();
+        Book book = BookBuilder.builder().build().toBook();
+        String firstId = expectedSavedItensEntry.getId();
 
-        when(itensEntryRepository.findAll()).thenReturn(Collections.singletonList(expectedSavedItensEntry));
+//        when(itensEntryRepository.findByName(expectedSavedItensEntry.getName())).thenReturn(Optional.empty());
+        when(bookService.findById(book.getId())).thenReturn(book);
 
-        List<ItensEntry> foundListItensEntrys = itensEntryService.findAll();
+        ItensEntry createdItensEntry = itensEntryService.create(expectedSavedItensEntry, book.getId());
 
-        assertThat(foundListItensEntrys, is(not(empty())));
-        assertThat(foundListItensEntrys.get(0), is(equalTo(expectedSavedItensEntry)));
+        assertThat(createdItensEntry.getId(), not(equalTo(firstId)));
+        assertThat(createdItensEntry.getQuantity(), is(equalTo(expectedSavedItensEntry.getQuantity())));
+        assertThat(createdItensEntry.getInvoiceNumber(), is(equalTo(expectedSavedItensEntry.getInvoiceNumber())));
     }
 
+    @Test
+    void whenNotRegisteredItensEntryIdIsGivenThenThrowAnException() {
+        ItensEntry expectedSavedItensEntry = ItensEntryBuilder.builder().build().toItensEntry();
 
+        when(itensEntryRepository.findById(expectedSavedItensEntry.getId())).thenReturn(Optional.empty());
 
-//
-//    @Test
-//    void whenGetBooksByItensEntryIsCalledThanReturnAListOfBooks() throws IdNotFoundException {
-//        ItensEntry itensEntry = ItensEntryBuilder.builder().build().toItensEntry();
-//
-//        when(itensEntryRepository.findById(itensEntry.getId())).thenReturn(Optional.of(itensEntry));
-//        doReturn(itensEntry.getBook()).when(bookMapper).toBookDTOList(itensEntry.getBook());
-//
-//        List<BookDTO> bookDTO = itensEntryService.getBooksByItensEntry(itensEntry.getId());
-//
-//        assertThat(itensEntry.getBook(), is(equalTo(bookDTO)));
-//    }
+        assertThrows(IdNotFoundException.class, () -> itensEntryService.findById(expectedSavedItensEntry.getId()));
+    }
+
+    @Test
+    void whenABookIsBoughtThenAddEntryOnBook() throws IdNotFoundException {
+
+        Book bookToBeUpdated = BookBuilder.builder().build().toBook();
+        double firstPrice = bookToBeUpdated.getPrice();
+        int firstQnt = bookToBeUpdated.getQuantity();
+
+        ItensEntry newRegisterToBeSavedOnBook = ItensEntryBuilder.builder().build().toItensEntry();
+
+        itensEntryService.addEntryOnBook(newRegisterToBeSavedOnBook, bookToBeUpdated);
+
+        assertThat(firstPrice, not(equalTo(newRegisterToBeSavedOnBook.getPrice())));
+        assertThat(bookToBeUpdated.getQuantity(), is(equalTo(firstQnt + newRegisterToBeSavedOnBook.getQuantity())));
+        assertThat(bookToBeUpdated.getItensEntry(), hasItem(newRegisterToBeSavedOnBook));
+    }
 
 }

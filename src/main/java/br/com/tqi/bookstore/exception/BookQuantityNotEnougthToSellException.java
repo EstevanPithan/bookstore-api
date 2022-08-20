@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class BookQuantityNotEnougthToSellException extends Exception{
 
-    public BookQuantityNotEnougthToSellException(){super( "Book quantity is not enough to reverve the iten entry.");
+    public BookQuantityNotEnougthToSellException(){super( "Book quantity is not enough to sell.");
     }
 }

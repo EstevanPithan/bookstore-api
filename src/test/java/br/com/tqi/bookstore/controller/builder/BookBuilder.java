@@ -37,10 +37,10 @@ public class BookBuilder {
     private int year = 1994;
 
     @Builder.Default
-    private int quantity = 10;
+    private int quantity = 0;
 
     @Builder.Default
-    private double price = 5;
+    private double price = 0;
 
     public Book toBook() {
         return new Book(id, name, author, itensEntry, itensSells, publishingCompany,image, year, quantity, price);
