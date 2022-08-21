@@ -1,0 +1,413 @@
+/* ----VARIAVEIS---- */
+:root {
+  --trans-color-one: #2c5364;
+  --trans-color-two: #203a43;
+  --trans-color-three: #0f2027;
+  --background: rgb(167, 162, 162);
+  --text-color: #6d6d6d;
+}
+
+/*-----BASE-----*/
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* -----HEARDER -----*/
+
+.header-wrapper {
+  height: 10vh;
+  width: 100vw;
+  background: linear-gradient(
+    -45deg,
+    var(--trans-color-one),
+    var(--trans-color-two),
+    var(--trans-color-three)
+  );
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+h1 {
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-align: center;
+  color: var(--background);
+}
+
+h2 {
+  text-transform: uppercase;
+}
+
+h3 {
+  text-transform: uppercase;
+  margin-left: 10px;
+}
+
+button {
+  width: 100px;
+  height: 40px;
+  border-radius: 10px;
+  margin: 5px;
+}
+
+.brand-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+a:hover {
+  color: var(--trans-color-two);
+}
+
+/* -----MENU HAMBURGUER------ */
+
+.checkbox-contaienr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkbox {
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9999;
+  transition: 400ms ease-in-out 0s;
+}
+
+.checkbox .trace {
+  width: 50px;
+  height: 2px;
+  background-color: var(--background);
+  position: absolute;
+  border-radius: 4px;
+  transition: 0.5s ease-in-out;
+}
+
+.checkbox .trace:nth-child(1) {
+  top: 16px;
+  transform: rotate(0);
+}
+
+.checkbox .trace:nth-child(2) {
+  top: 36px;
+  transform: rotate(0);
+}
+
+.checkbox .trace:nth-child(3) {
+  top: 56px;
+  transform: rotate(0);
+}
+
+#toggle {
+  display: none;
+}
+
+/* -----MENU----- */
+
+.menu {
+  position: absolute;
+  top: 28px;
+  right: 30px;
+  background: transparent;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 0px 0px white;
+  z-index: -1;
+  transition: 400ms ease-in-out 0s;
+}
+
+.menu-items {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 2;
+  opacity: 0;
+  visibility: hidden;
+  transition: 400ms ease-in-out 0s;
+}
+
+.menu-items ul {
+  list-style-type: none;
+}
+
+.menu-items ul li {
+  margin: 10px 0;
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 25px;
+}
+
+.menu-items ul li a {
+  margin: 10px 0;
+  color: var(--background);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 20px;
+}
+
+/* ----ANIMAÇÃO MENU ----- */
+
+#toggle:checked + .checkbox .trace:nth-child(1) {
+  transform: rotate(45deg);
+  background-color: white;
+  top: 47px;
+}
+
+#toggle:checked + .checkbox .trace:nth-child(2) {
+  transform: translateX(-100px);
+  width: 30px;
+  visibility: hidden;
+  opacity: 0;
+}
+
+#toggle:checked + .checkbox .trace:nth-child(3) {
+  transform: rotate(-45deg);
+  background-color: white;
+  top: 48px;
+}
+
+#toggle:checked + .checkbox {
+  background-color: linear-gradient(
+    -45deg,
+    var(--trans-color-one),
+    var(--trans-color-two),
+    var(--trans-color-three)
+  );
+}
+
+#toggle:checked ~ .menu {
+  box-shadow: 0px 0px 0px 100vmax var(--trans-color-one);
+  z-index: 1;
+}
+
+#toggle:checked ~ .menu-items {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* -----CARDS das telas de consulta ----- */
+main {
+  color: black;
+}
+
+.container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 3rem 0;
+}
+
+.search-bar-container {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 90%;
+  padding: 10px;
+}
+.search-bar-container h2 {
+  margin: 0 5px;
+  padding: 10px;
+}
+
+.search-wrapper {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.search-bar {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 100%;
+  margin: 0 5px;
+  padding: 10px 0px 10px 10px;
+}
+
+.cards-wrapper {
+  width: 90%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+}
+
+.card-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  z-index: 0; /*INSERI PARA QUE O MENU QUANDO ABERTO NÃO SOBREPUNHA O */
+  background-color: white;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.card-info {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0px 30px 0px 30px;
+}
+
+.card-image img {
+  height: 100px;
+  margin: 10px;
+}
+
+.card-data {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.card-text {
+  width: 40%;
+  font-family: sans-serif;
+  letter-spacing: 1px;
+  color: var(--text-color);
+}
+
+.card-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 30px 0px 30px;
+}
+
+.card:hover {
+  filter: unset;
+}
+
+.card:hover > .card-wrapper::before {
+  opacity: 1;
+  width: 350px;
+  height: 250px;
+}
+
+.card:hover > .card-wrapper p {
+  font-size: 14px;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* -----Telas de cadastro ----- */
+.registration-container {
+  width: 100%;
+  margin: 0 5px;
+}
+
+.input-bar {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 90%;
+
+  padding: 10px 10px 10px 10px;
+}
+
+.registration-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  padding: 30px;
+}
+
+/* ---FOOTER --- */
+
+.footer {
+  height: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    -45deg,
+    var(--trans-color-one),
+    var(--trans-color-two),
+    var(--trans-color-three)
+  );
+  background-size: 400% 400%;
+}
+
+/* ----RESPONSIVO---- */
+
+@media (max-width: 800px) {
+  .container {
+    margin-top: 0;
+  }
+
+  .card-container {
+    flex-direction: row;
+    padding-right: 10px;
+  }
+
+  .card-info {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .card-data {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .card-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-text {
+    width: 90%;
+  }
+
+  .card:hover > .card-wrapper::before {
+    height: 190px;
+    width: 190px;
+  }
+}
