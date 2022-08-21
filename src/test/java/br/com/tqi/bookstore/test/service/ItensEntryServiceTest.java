@@ -1,21 +1,13 @@
-package br.com.tqi.bookstore.controller.service;
+package br.com.tqi.bookstore.test.service;
 
-import br.com.tqi.bookstore.controller.builder.AuthorBuilder;
-import br.com.tqi.bookstore.controller.builder.BookBuilder;
-import br.com.tqi.bookstore.controller.builder.ItensEntryBuilder;
-import br.com.tqi.bookstore.controller.dto.BookDTO;
-import br.com.tqi.bookstore.controller.mapper.AuthorMapper;
-import br.com.tqi.bookstore.controller.mapper.BookMapper;
+import br.com.tqi.bookstore.test.builder.BookBuilder;
+import br.com.tqi.bookstore.test.builder.ItensEntryBuilder;
 import br.com.tqi.bookstore.controller.mapper.ItensEntryMapper;
 import br.com.tqi.bookstore.exception.IdNotFoundException;
 import br.com.tqi.bookstore.exception.NameAlreadyRegisteredException;
-import br.com.tqi.bookstore.model.Author;
 import br.com.tqi.bookstore.model.Book;
 import br.com.tqi.bookstore.model.ItensEntry;
-import br.com.tqi.bookstore.repository.AuthorRepository;
-import br.com.tqi.bookstore.repository.BookRepository;
 import br.com.tqi.bookstore.repository.ItensEntryRepository;
-import br.com.tqi.bookstore.service.AuthorService;
 import br.com.tqi.bookstore.service.BookService;
 import br.com.tqi.bookstore.service.ItensEntryService;
 import org.junit.jupiter.api.Test;
@@ -24,7 +16,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;

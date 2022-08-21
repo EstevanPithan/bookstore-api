@@ -29,6 +29,7 @@ public class BookController {
 
     @GetMapping("/findAll")
     @ApiOperation("Find all books")
+    //@CrossOrigin(origins = "*")
     public ResponseEntity<List<BookDTO>> findAll(){
         List<Book> bookList = bookService.findAll();
         List<BookDTO> result = bookMapper.toBookDTOList(bookList);
@@ -39,6 +40,14 @@ public class BookController {
     @ApiOperation("Find a book by id")
     public ResponseEntity<BookDTO> findById(@PathVariable String id) throws IdNotFoundException {
         Book book = bookService.findById(id);
+        BookDTO result = bookMapper.toBookDTO(book);
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/findByName/{name}")
+    @ApiOperation("Find a book by name")
+    public ResponseEntity<BookDTO> findByName(@PathVariable String name) throws IdNotFoundException {
+        Book book = bookService.findByName(name);
         BookDTO result = bookMapper.toBookDTO(book);
         return ResponseEntity.ok(result);
     }
@@ -55,7 +64,8 @@ public class BookController {
     @ApiOperation("Create a new book")
     public ResponseEntity<BookDTO> create(@RequestBody BookCreateDTO dto) throws NameAlreadyRegisteredException, IdNotFoundException {
         Book bookCreate = bookMapper.toBookCreate(dto);
-        Book book = bookService.create(bookCreate, String.valueOf(dto.getAuthorId()));
+//        Book book = bookService.create(bookCreate, String.valueOf(dto.getAuthor()));
+        Book book = bookService.create(bookCreate);
         BookDTO result = bookMapper.toBookDTO(book);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }

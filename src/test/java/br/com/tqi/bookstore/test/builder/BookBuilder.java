@@ -1,4 +1,4 @@
-package br.com.tqi.bookstore.controller.builder;
+package br.com.tqi.bookstore.test.builder;
 
 import br.com.tqi.bookstore.model.Author;
 import br.com.tqi.bookstore.model.Book;
@@ -18,8 +18,11 @@ public class BookBuilder {
     @Builder.Default
     private String name = "book test";
 
+//    @Builder.Default
+//    private Author author = new Author("123456", "author for test", "14/10/1994",  new ArrayList<Book>());
+
     @Builder.Default
-    private Author author = new Author("123456", "author for test", "14/10/1994",  new ArrayList<Book>());
+    private String author = "auhtor";
 
     @Builder.Default
     private String publishingCompany = "company for book test";
@@ -43,6 +46,6 @@ public class BookBuilder {
     private double price = 0;
 
     public Book toBook() {
-        return new Book(id, name, author, itensEntry, itensSells, publishingCompany,image, year, quantity, price);
+        return new Book(id, name, author, itensEntry, itensSells, publishingCompany, image, year, quantity, price);
     }
 }

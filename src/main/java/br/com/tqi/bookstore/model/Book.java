@@ -22,10 +22,12 @@ public class Book {
     private String id;
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    @JsonManagedReference
-    private Author author;
+//    @ManyToOne
+//    @JoinColumn(name = "author_id")
+//    @JsonManagedReference
+//    private Author author;
+
+    private String author;
     @OneToMany
     private List<ItensEntry> itensEntry = new ArrayList<>();
     @JsonManagedReference

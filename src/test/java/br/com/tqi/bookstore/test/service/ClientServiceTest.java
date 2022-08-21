@@ -1,18 +1,13 @@
-package br.com.tqi.bookstore.controller.service;
+package br.com.tqi.bookstore.test.service;
 
-import br.com.tqi.bookstore.controller.builder.AuthorBuilder;
-import br.com.tqi.bookstore.controller.builder.BookBuilder;
-import br.com.tqi.bookstore.controller.builder.ClientBuilder;
-import br.com.tqi.bookstore.controller.mapper.BookMapper;
+import br.com.tqi.bookstore.test.builder.ClientBuilder;
 import br.com.tqi.bookstore.controller.mapper.ClientMapper;
 import br.com.tqi.bookstore.exception.CpfAlreadyRegisteredException;
 import br.com.tqi.bookstore.exception.IdNotFoundException;
 import br.com.tqi.bookstore.exception.NameAlreadyRegisteredException;
 import br.com.tqi.bookstore.model.*;
-import br.com.tqi.bookstore.repository.BookRepository;
 import br.com.tqi.bookstore.repository.ClientRepository;
 import br.com.tqi.bookstore.service.AuthorService;
-import br.com.tqi.bookstore.service.BookService;
 import br.com.tqi.bookstore.service.ClientService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,8 +31,6 @@ public class ClientServiceTest {
     @Mock
     private ClientRepository clientRepository;
 
-    @Mock
-    private AuthorService authorService;
     private ClientMapper clientMapper;
     @InjectMocks
     private ClientService clientService;

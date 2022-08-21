@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/itensEntry")
+@RequestMapping("/entry")
 @Api(tags = "Entry Controller")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ItensEntryController {

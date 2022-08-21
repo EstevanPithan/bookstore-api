@@ -39,6 +39,11 @@ public class AuthorService {
         return authorRepository.findById(id).orElseThrow(() -> new IdNotFoundException(id)); //Find by id retorna um optinal
     }
 
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+    public Author findByName(String name) throws IdNotFoundException {
+        return authorRepository.findByName(name).orElseThrow(() -> new IdNotFoundException(name)); //Find by id retorna um optinal
+    }
+
     @Transactional
     public Author create(Author authorCreate) throws NameAlreadyRegisteredException {
         verifyIfIsAlreadyRegistered(authorCreate.getName());

@@ -17,7 +17,7 @@ public class BookDTO {
 
     private String id;
     private String name;
-    private Author author;
+    private String author;
     private String publishingCompany;
     private String image;
     private int year;

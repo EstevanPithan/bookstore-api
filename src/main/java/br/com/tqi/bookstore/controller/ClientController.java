@@ -43,6 +43,14 @@ public class ClientController {
         return ResponseEntity.ok(result);
     }
 
+    @GetMapping("/findByCpf/{cpf}")
+    @ApiOperation("Find a client by cpf")
+    public ResponseEntity<ClientDTO> findByCpf(@PathVariable String cpf) throws IdNotFoundException {
+        Client client = clientService.findByCpf(cpf);
+        ClientDTO result = clientMapper.toClientDTO(client);
+        return ResponseEntity.ok(result);
+    }
+
 
     @DeleteMapping("/delete/{id}")
     @ApiOperation("Delete a client by id")

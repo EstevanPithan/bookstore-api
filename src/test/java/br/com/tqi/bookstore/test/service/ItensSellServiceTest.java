@@ -1,23 +1,18 @@
-package br.com.tqi.bookstore.controller.service;
+package br.com.tqi.bookstore.test.service;
 
-import br.com.tqi.bookstore.controller.builder.BookBuilder;
-import br.com.tqi.bookstore.controller.builder.ClientBuilder;
-import br.com.tqi.bookstore.controller.builder.ItensEntryBuilder;
-import br.com.tqi.bookstore.controller.builder.ItensSellBuilder;
-import br.com.tqi.bookstore.controller.mapper.ItensEntryMapper;
+import br.com.tqi.bookstore.test.builder.BookBuilder;
+import br.com.tqi.bookstore.test.builder.ClientBuilder;
+import br.com.tqi.bookstore.test.builder.ItensSellBuilder;
 import br.com.tqi.bookstore.controller.mapper.ItensSellMapper;
 import br.com.tqi.bookstore.exception.BookQuantityNotEnougthToSellException;
 import br.com.tqi.bookstore.exception.IdNotFoundException;
 import br.com.tqi.bookstore.exception.NameAlreadyRegisteredException;
 import br.com.tqi.bookstore.model.Book;
 import br.com.tqi.bookstore.model.Client;
-import br.com.tqi.bookstore.model.ItensEntry;
 import br.com.tqi.bookstore.model.ItensSell;
-import br.com.tqi.bookstore.repository.ItensEntryRepository;
 import br.com.tqi.bookstore.repository.ItensSellRepository;
 import br.com.tqi.bookstore.service.BookService;
 import br.com.tqi.bookstore.service.ClientService;
-import br.com.tqi.bookstore.service.ItensEntryService;
 import br.com.tqi.bookstore.service.ItensSellService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

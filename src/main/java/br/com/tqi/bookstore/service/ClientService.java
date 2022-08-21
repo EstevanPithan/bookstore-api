@@ -36,6 +36,11 @@ public class ClientService {
         return clientRepository.findById(id).orElseThrow(() -> new IdNotFoundException(id)); //Find by id retorna um optinal
     }
 
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+    public Client findByCpf(String cpf) throws IdNotFoundException {
+        return clientRepository.findByCpf(cpf).orElseThrow(() -> new IdNotFoundException(cpf)); //Find by id retorna um optinal
+    }
+
     @Transactional
     public Client create(Client clientCreate) throws CpfAlreadyRegisteredException {
         verifyIfIsAlreadyRegistered(clientCreate.getCpf());

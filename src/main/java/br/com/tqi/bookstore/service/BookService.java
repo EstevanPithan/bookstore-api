@@ -37,16 +37,21 @@ public class BookService {
         return bookRepository.findById(id).orElseThrow(() -> new IdNotFoundException(id)); //Find by id retorna um optinal
     }
 
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+    public Book findByName(String name) throws IdNotFoundException {
+        return bookRepository.findById(name).orElseThrow(() -> new IdNotFoundException(name)); //Find by id retorna um optinal
+    }
+
     @Transactional
-    public Book create(Book bookCreate, String authorId) throws NameAlreadyRegisteredException, IdNotFoundException {
+    public Book create(Book bookCreate) throws NameAlreadyRegisteredException, IdNotFoundException {
         verifyIfIsAlreadyRegistered(bookCreate.getName());
 
         String uuid = getUUID();
-        Author author = authorService.findById(authorId);
+//        Author author = authorService.findById(authorId);
         bookCreate.setId(uuid);
-        bookCreate.setAuthor(author);
+//        bookCreate.setAuthor(author);
         bookRepository.save(bookCreate);
-        addBookOnAuthorList(bookCreate, author);
+//        addBookOnAuthorList(bookCreate, author);
         return bookCreate;
     }
 
@@ -79,8 +84,8 @@ public class BookService {
 
 
     private void verifyIfIsAlreadyRegistered(String name) throws NameAlreadyRegisteredException {
-        Optional<Author> optionalAuthor = bookRepository.findByName(name);
-        if (optionalAuthor.isPresent()) {
+        Optional<Book> optionalBook = bookRepository.findByName(name);
+        if (optionalBook.isPresent()) {
             throw new NameAlreadyRegisteredException(name);
         }
     }

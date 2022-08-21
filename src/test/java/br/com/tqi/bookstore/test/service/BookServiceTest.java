@@ -1,17 +1,12 @@
-package br.com.tqi.bookstore.controller.service;
+package br.com.tqi.bookstore.test.service;
 
-import br.com.tqi.bookstore.controller.builder.AuthorBuilder;
-import br.com.tqi.bookstore.controller.builder.BookBuilder;
-import br.com.tqi.bookstore.controller.dto.BookDTO;
-import br.com.tqi.bookstore.controller.mapper.AuthorMapper;
+import br.com.tqi.bookstore.test.builder.BookBuilder;
 import br.com.tqi.bookstore.controller.mapper.BookMapper;
 import br.com.tqi.bookstore.exception.IdNotFoundException;
 import br.com.tqi.bookstore.exception.NameAlreadyRegisteredException;
-import br.com.tqi.bookstore.model.Author;
 import br.com.tqi.bookstore.model.Book;
 import br.com.tqi.bookstore.model.ItensEntry;
 import br.com.tqi.bookstore.model.ItensSell;
-import br.com.tqi.bookstore.repository.AuthorRepository;
 import br.com.tqi.bookstore.repository.BookRepository;
 import br.com.tqi.bookstore.service.AuthorService;
 import br.com.tqi.bookstore.service.BookService;
@@ -46,13 +41,14 @@ public class BookServiceTest {
     @Test
     void whenBookInformedThenItShouldBeCreated() throws NameAlreadyRegisteredException, IdNotFoundException {
         Book expectedSavedBook = BookBuilder.builder().build().toBook();
-        Author author = AuthorBuilder.builder().build().toAuthor();
+//        Author author = AuthorBuilder.builder().build().toAuthor();
         String firstId = expectedSavedBook.getId();
 
         when(bookRepository.findByName(expectedSavedBook.getName())).thenReturn(Optional.empty());
-        when(authorService.findById(author.getId())).thenReturn(author);
+//        when(authorService.findById(author.getId())).thenReturn(author);
 
-        Book createdBook = bookService.create(expectedSavedBook, author.getId());
+        //Book createdBook = bookService.create(expectedSavedBook, author.getId());
+        Book createdBook = bookService.create(expectedSavedBook);
 
         assertThat(createdBook.getId(), not(equalTo(firstId)));
         assertThat(createdBook.getName(), is(equalTo(expectedSavedBook.getName())));
@@ -71,11 +67,12 @@ public class BookServiceTest {
     @Test
     void whenValidBookIdIsGivenThenReturnABook() throws NameAlreadyRegisteredException, IdNotFoundException {
         Book expectedSavedBook = BookBuilder.builder().build().toBook();
-        Author author = AuthorBuilder.builder().build().toAuthor();
+        //Author author = AuthorBuilder.builder().build().toAuthor();
 
-        when(authorService.findById(author.getId())).thenReturn(author);
+        //when(authorService.findById(author.getId())).thenReturn(author);
 
-        Book createdBook = bookService.create(expectedSavedBook, author.getId());
+        //Book createdBook = bookService.create(expectedSavedBook, author.getId());
+        Book createdBook = bookService.create(expectedSavedBook);
 
         when(bookRepository.findById(expectedSavedBook.getId())).thenReturn(Optional.of(createdBook));
 
@@ -113,7 +110,7 @@ public class BookServiceTest {
         Book expectedUpdatedBook = BookBuilder.builder().build().toBook();
         Book update = new Book("567890",
                 "book2",
-                new Author(),
+                "author2",
                 new ArrayList<ItensEntry>(),
                 new ArrayList<ItensSell>(),
                 "company2",
