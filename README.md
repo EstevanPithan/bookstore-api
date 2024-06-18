@@ -1,2 +1,119 @@
-# tqi-bookstore-api
-Repositório para a API do projeto do processo seletivo da TQI
+Bookstore API
+
+Bookstore API is a Spring Boot application designed to manage a bookstore's inventory, customers, and sales. It offers RESTful endpoints for managing books, customers, orders, and other bookstore-related data.
+Table of Contents
+
+    Features
+    Installation
+    Usage
+    Endpoints
+    Technologies
+    Contributing
+    License
+
+Features
+
+    Manage books (CRUD operations)
+    Manage customers (CRUD operations)
+    Manage orders (CRUD operations)
+    Secure endpoints with Spring Security
+    Documentation with Swagger
+
+Installation
+Prerequisites
+
+    Java 17 or higher
+    Maven
+    MySQL
+
+Steps
+
+    Clone the repository
+
+    sh
+
+git clone https://github.com/your-username/bookstore-api.git
+cd bookstore-api
+
+Configure the database
+
+    Create a MySQL database named bookstore.
+    Update the application.properties file with your MySQL credentials.
+
+properties
+
+spring.datasource.url=jdbc:mysql://localhost:3306/bookstore
+spring.datasource.username=root
+spring.datasource.password=yourpassword
+spring.jpa.hibernate.ddl-auto=update
+
+Build the project
+
+sh
+
+mvn clean install
+
+Run the application
+
+sh
+
+    mvn spring-boot:run
+
+Usage
+
+Once the application is running, you can access the Swagger UI for API documentation and testing at:
+
+bash
+
+http://localhost:8080/swagger-ui.html
+
+Endpoints
+Books
+
+    GET /api/books - List all books
+    GET /api/books/{id} - Get a book by ID
+    POST /api/books - Create a new book
+    PUT /api/books/{id} - Update a book
+    DELETE /api/books/{id} - Delete a book
+
+Customers
+
+    GET /api/customers - List all customers
+    GET /api/customers/{id} - Get a customer by ID
+    POST /api/customers - Create a new customer
+    PUT /api/customers/{id} - Update a customer
+    DELETE /api/customers/{id} - Delete a customer
+
+Orders
+
+    GET /api/orders - List all orders
+    GET /api/orders/{id} - Get an order by ID
+    POST /api/orders - Create a new order
+    PUT /api/orders/{id} - Update an order
+    DELETE /api/orders/{id} - Delete an order
+
+Technologies
+
+    Spring Boot - Framework for building the application
+    Spring Data JPA - For database interactions
+    Spring Security - For securing the application
+    MySQL - Database
+    Swagger - API documentation
+    Lombok - To reduce boilerplate code
+    ModelMapper - For object mapping
+
+Contributing
+
+Contributions are welcome! Please submit a pull request or open an issue to discuss what you would like to change.
+
+    Fork the project.
+    Create your feature branch (git checkout -b feature/AmazingFeature).
+    Commit your changes (git commit -m 'Add some AmazingFeature').
+    Push to the branch (git push origin feature/AmazingFeature).
+    Open a pull request.
+
+License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+Feel free to adjust the repository link, contact information, and other details as necessary.
